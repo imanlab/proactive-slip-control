@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- realsense node -->
+  <arg name="color_fps" default="60"/>
+  <arg name="color_width" default="640"/>
+  <arg name="color_height" default="360" />
+
+  <include file="$(find realsense2_camera)/launch/rs_camera.launch">
+      <arg name="color_fps" value="$(arg color_fps)"/>
+      <arg name="color_width" value="$(arg color_width)" />
+      <arg name="color_height" value="$(arg color_height)" />
+  </include>
+
+  <!-- marker node -->
+  <include file="$(find aruco_ros)/launch/double.launch" />
+
+  <!-- publisher script node -->
+  <node name="xela_publisher" pkg="robotTest" type="xela_publisher.py"/>
+  <node name="sync_publisher_node" pkg="robotTest" type="sync_publisher_node.py"/>
+  <node name="traj_publisher" pkg="robotTest" type="traj_publisher.py"/>
+
+</launch>
